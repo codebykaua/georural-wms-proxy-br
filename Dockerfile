@@ -1,7 +1,15 @@
-.git
-.github
-node_modules
-npm-debug.log*
-*.zip
-*.md
-DEPLOY_AZURE_BRAZIL_SOUTH.sh
+FROM node:22-alpine
+
+ENV NODE_ENV=production \
+    HOST=0.0.0.0 \
+    PORT=10000
+
+WORKDIR /app
+
+COPY --chown=node:node package.json server.mjs ./
+
+USER node
+
+EXPOSE 10000
+
+CMD ["node", "server.mjs"]
